@@ -125,21 +125,11 @@ function updateData() {
   var nomOnglet = 'indicateursClefs'
   eval('$rootScope.selection.'+ nomOnglet + ' = []')
   eval('$rootScope.selection.'+ nomOnglet + '.comparaison = []')
-/*
 
-  $rootScope.selection.checkedbox[$rootScope.tmpCheckbox] = false
-  $rootScope.selection.disable[$rootScope.tmpCheckbox] = false;
-  $rootScope.selection.checkedbox[Code_Segment + '|' + Code_SousSegment] = true
-  $rootScope.selection.disable[Code_Segment + '|' + Code_SousSegment] = true;
-  $rootScope.tmpCheckbox = Code_Segment + '|' + Code_SousSegment;
-*/
   //---------------------------------------------
   $rootScope.updateView(onglet, upVar.onglet.comparaison, upVar.onglet.evolution, upVar.onglet.view_value)
   $rootScope.updateCase(prestataire1, prestataire2, segment, sousSegment, Global);
-
-
   upThis.initEff(Code_Periode, Code_Prestataire, Code_Segment, Code_SousSegment, Code_TypePeriode);
-
   upThis.initQuestion(onglet, function (questions) {
     $rootScope.questions = questions
       //MISE A JOUR DU COMPARATEUR

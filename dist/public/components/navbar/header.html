@@ -1,0 +1,97 @@
+	        <header>
+            <div class="wrapper-header-bg">
+               <div class="header-content-wrapper" role="heading">
+                    <div class="hgroup">
+                        <a href="#"><img src="assets/theme/img/logo-francaisedesjeux.png" alt="Française des Jeux"></a>
+                        <a href="#"><img src="assets/theme/img/logo-initmarketing.png" alt="Init Marketing"></a>
+                    </div>
+                    <div class="filters" role="complementary">
+                        <div class="filter filter-1 periode">
+                            <div class="filter-title">Période</div>
+                            <div class="menudrop">
+                                <select 
+                                ng-model="selection.annee_value"
+                                ng-options="annee.year for annee in liste_annee track by annee.year"
+                                id="selectbox_1"
+                                ng-change="getMois(selection.annee_value)"
+                                class="selectSelected">
+                                </select>
+                            </div>
+                            <div class="menudrop">
+                                <select ng-model="selection.mois_value"
+                                ng-options="Periode_Libel[mois.month] for mois in liste_mois track by mois.month"
+                                id="selectbox_2"
+                                name="ReportingFrm_slct_month"
+                                ng-change="MoisVal(selection.mois_value)"
+                                class ="selectSelected">
+                                </select>
+                            </div>                        
+                        </div>
+                        <div class="filter filter-2 canal">
+                            <div class="filter-title">Prestataire</div>
+                            <div class="menudrop">
+                                <select 
+                                ng-model="selection.prestataire_value1"
+                                ng-options="prestataire.Prestataire_Libel for prestataire in liste_prestataire1 track by prestataire.Prestataire_Libel "
+                                id="selectbox_3"
+                                ng-change="updatePrestataire(selection.prestataire_value1)"
+                                ng-class="{'selectSelected': templateCas1 || templateCas2 || templateCas3 || templateCas4 || templateCas5 || templateCas6 || templateCas7 || templateCas8}">
+                                </select>
+                            </div>                        
+                        </div>
+                        
+                        <div class="filter filter-4 prestataire">
+                            <div class="filter-title">Canal de contact</div>
+                            <div class="menudrop">
+                                <select 
+                                ng-model="selection.prestataire_value2"
+                                ng-options="prestataire.Prestataire_Libel for prestataire in liste_prestataire2 track by prestataire.Prestataire_Libel "
+                                id="selectbox_6"
+                                ng-change="updatePrestataire(selection.prestataire_value2)"
+                                ng-class="{'selectSelected': templateCas2 || templateCas3 || templateCas4 || templateCas5 || templateCas6 || templateCas7 || templateCas8}">
+                                </select>
+                            </div>  
+                        </div>
+                    <div class="filter filter-3 segment">
+                            <div class="filter-title">Segment</div>
+                            <div class="menudrop">
+                                <select ng-model="selection.segment_value"
+                                ng-options="segment.Segment_Libel for segment in liste_segment track by segment.Segment_Libel"
+                                id="selectbox_4"
+                                ng-change="getSousSegment(selection.segment_value)"
+                                ng-class="{'selectSelected':  templateCas3 || templateCas4 || templateCas5 || templateCas6 || templateCas7 || templateCas8}">
+                                </select>
+                            </div>                              
+                            <div class="menudrop">
+                                <select ng-model="selection.sous_segment_value"
+                                ng-options="sous_segment.Sous_Seg_Libel for sous_segment in liste_sous_segment track by sous_segment.Sous_Seg_Libel"
+                                id="selectbox_5"
+                                ng-change="updateSousSegment(selection.sous_segment_value)"
+                                ng-class="{'selectSelected':  templateCas3 || templateCas4 || templateCas5 || templateCas6 || templateCas7 || templateCas8}">
+                                </select>
+                            </div>                          
+                        </div>
+                    </div>
+
+                    <div class="data-1 datas" ng-if="templateCas1">
+                        <span class="value">{{selection.prestataire_value1.Prestataire_Libel}}</span>
+                        <span class="label-value">SERVICE CLIENT</span>
+                    </div>
+                    <div class="data-1 datas" ng-if="templateCas2 || templateCas5 || templateCas7">
+                        <span class="value">{{selection.prestataire_value1.Prestataire_Libel}} {{selection.prestataire_value2.Prestataire_Libel}}</span>
+                        <span class="label-value">SERVICE CLIENT</span>
+                    </div>
+                    <div class="data-1 datas" ng-if="templateCas3 || templateCas4 || templateCas6 || templateCas8">
+                        <span class="value">
+                            {{selection.prestataire_value1.Prestataire_Libel}} {{selection.prestataire_value2.Prestataire_Libel}}
+                            {{selection.segment_value.Segment_Libel}} {{selection.sous_segment_value.Sous_Seg_Libel}}
+                        </span>
+                        <span class="label-value">SERVICE CLIENT</span>
+                    </div>
+                    <div class="data-2 datas">
+                        <span class="value">{{selection.eff}}</span>
+                        <span class="label-value">REPONDANTS</span>
+                    </div>
+                </div>
+            </div>
+        </header>

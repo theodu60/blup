@@ -1,0 +1,135 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+	<script src="app/js-highchart/jquery.js"></script>
+    <script src="app/js-highchart/highstock.src.js"></script>
+    <script src="app/cryptage/sha1.js"></script>
+      <script src="bower_components/jspdf/dist/jspdf.min.js"></script>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(client) app/vendor.css -->
+      <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+      <link rel="stylesheet" href="bower_components/angular-rangeslider/angular.rangeSlider.css" />
+      <link rel="stylesheet" href="bower_components/semantic-ui/dist/semantic.css" />
+      <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,client}) app/app.css -->
+    <link rel="stylesheet" href="app/app.css">
+      <!-- injector:css -->
+      <link rel="stylesheet" href="app/app.css">
+      <link rel="stylesheet" href="app/appendix/appendix.css">
+      <link rel="stylesheet" href="app/bootstrapmini.css">
+      <link rel="stylesheet" href="app/buying_intention/buying_intention.css">
+      <link rel="stylesheet" href="app/glass/glass.css">
+      <link rel="stylesheet" href="app/login/login.css">
+      <link rel="stylesheet" href="app/loyalty/loyalty.css">
+      <link rel="stylesheet" href="app/main/main.css">
+      <link rel="stylesheet" href="app/nps/icone.css">
+      <link rel="stylesheet" href="app/nps/nps.css">
+      <link rel="stylesheet" href="app/overall_satisfaction/overall_satisfaction.css">
+      <link rel="stylesheet" href="app/satisfaction_products/satisfaction_products.css">
+      <link rel="stylesheet" href="app/satisfaction_services/satisfaction_services.css">
+      <link rel="stylesheet" href="app/synthesis/synthesis.css">
+      <link rel="stylesheet" href="app/verbatim/verbatim.css">
+      <!-- endinjector -->
+    <!-- endbuild -->
+  </head>
+  <body ng-app="redcatsApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div ng-view=""></div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID 
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-XXXXX-X');
+      ga('send', 'pageview');
+    </script>
+-->
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    <!-- build:js({client,node_modules}) app/vendor.js -->
+      <!-- bower:js -->
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/angular-route/angular-route.js"></script>
+      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
+      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/angular-rangeslider/angular.rangeSlider.js"></script>
+      <script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+      <script src="bower_components/semantic-ui/dist/semantic.js"></script>
+      <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,client}) app/app.js -->
+        <script src="app/app.js"></script>
+          <!-- injector:js -->
+          <script src="app/appendix/appendix.controller.js"></script>
+          <script src="app/appendix/appendix.js"></script>
+          <script src="app/buying_intention/buying_intention.controller.js"></script>
+          <script src="app/buying_intention/buying_intention.js"></script>
+          <script src="app/cryptage/sha1.js"></script>
+          <script src="app/dynamicTemplate/dynamicTemplate.directive.js"></script>
+          <script src="app/glass/glass.controller.js"></script>
+          <script src="app/glass/glass.js"></script>
+          <script src="app/js-highchart/highstock.src.js"></script>
+          <script src="app/js-highchart/jquery.js"></script>
+          <script src="app/login/login.controller.js"></script>
+          <script src="app/login/login.js"></script>
+          <script src="app/loyalty/loyalty.controller.js"></script>
+          <script src="app/loyalty/loyalty.js"></script>
+          <script src="app/main/main.controller.js"></script>
+          <script src="app/main/main.js"></script>
+          <script src="app/nps/nps.controller.js"></script>
+          <script src="app/nps/nps.js"></script>
+          <script src="app/overall_satisfaction/overall_satisfaction.controller.js"></script>
+          <script src="app/overall_satisfaction/overall_satisfaction.js"></script>
+          <script src="app/satisfaction_products/satisfaction_products.controller.js"></script>
+          <script src="app/satisfaction_products/satisfaction_products.js"></script>
+          <script src="app/satisfaction_services/satisfaction_services.controller.js"></script>
+          <script src="app/satisfaction_services/satisfaction_services.js"></script>
+          <script src="app/synthesis/synthesis.controller.js"></script>
+          <script src="app/synthesis/synthesis.js"></script>
+          <script src="app/var_annee/var_annee.service.js"></script>
+          <script src="app/var_checkbox/var_checkbox.service.js"></script>
+          <script src="app/var_login/var_login.service.js"></script>
+          <script src="app/var_onglet/var_onglet.service.js"></script>
+          <script src="app/var_pays/var_pays.service.js"></script>
+          <script src="app/var_periode/var_periode.service.js"></script>
+          <script src="app/var_question_line/var_question_line.service.js"></script>
+          <script src="app/var_segment/var_segment.service.js"></script>
+          <script src="app/var_sub_segment/var_sub_segment.service.js"></script>
+          <script src="app/verbatim/verbatim.controller.js"></script>
+          <script src="app/verbatim/verbatim.js"></script>
+          <script src="components/navbar/navbar.controller.js"></script>
+          <!-- endinjector -->
+        <!-- endbuild -->
+        
+
+<script>//<![CDATA[
+document.write('<script src="//' + (location.hostname || 'localhost') + ':35729/livereload.js?snipver=1"><\/script>')
+//]]></script>
+</body>
+</html>

@@ -7,19 +7,21 @@ angular.module('fdjApp')
 //---------------------------------------//
     //Cette fonction met a jour le header
 function initMaster () {
-	upThis.initAnnee(function() {
-		upThis.initMois(function () {
-			upThis.initPrestataire1(function () {
-				upThis.initPrestataire2(function () {
-					upThis.initSegment(function (Code_Segment) {
-						upThis.initSousSegment(Code_Segment, function (Code_SousSegment) {
-							updateData();
-			          	});
-		          	});
-	          	});
-          	});
-		});
-	});
+  $rootScope.initAnnee(function() {
+    $rootScope.initMois(function () {
+      $rootScope.initPrestataire1(function () {
+        $rootScope.initPrestataire2(function () {
+          $rootScope.initSegment(function (Code_Segment) {
+            $rootScope.initSousSegment(Code_Segment, function (Code_SousSegment) {
+              $rootScope.buildCheckboxPanel(function () {
+                updateData();
+              });
+            });
+          });
+        });
+      });
+    });
+  });
 }
 //---------------------------------------//
 //------------------HEADER---------------//

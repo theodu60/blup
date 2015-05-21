@@ -321,8 +321,11 @@ $rootScope.updateIndicateurClefsCompTab = function  (nomColonne, questions, Code
   })
   .success(function(data, status, headers, config) {
       try {
-          var clean = data[data.length - 1].col
-          tableau.push({nom:nomColonne, col:clean, evo:[]})
+          if (data[data.length - 1]) {
+            var clean = data[data.length - 1].col
+            tableau.push({nom:nomColonne, col:clean, evo:[]})
+          }
+
           return cb(tableau)
       } catch(e) {
           console.log(e);
@@ -345,7 +348,6 @@ $rootScope.updateComparateur = function (onglet, Code_Periode, Code_Prestataire,
   eval('$rootScope.selection.' + nomOnglet + '.comparaison['+index+'].tab = []')
   var tableau = [];
   var Code_PrestataireGlobal = parseInt(Code_Prestataire.toString()[0]) + 0;
-  console.log(Code_PrestataireGlobal)
   if (prestataire1 == Global && prestataire2 == Global && segment == Global && sousSegment == Global) {
     $rootScope.updateIndicateurClefsCompTab("ServiceClient", questions, Code_Periode, 0, 0, 0, Code_TypePeriode, onglet, nomOnglet, index, tableau, function (tableau){
          return cb(tableau)
@@ -911,7 +913,7 @@ $rootScope.buildCheckboxPanel = function (cb) {
                     for (var i in tabIndicateur) {
                       questions[z] = {
                         indicateur: tabIndicateur[i],
-                        libel_appli_1 : libel_Donnees[i].replace(/ /g, ''),
+                        libel_appli_1 : libel_Donnees[i],
                         libel_appli_2 : "",
                         libel_Donnees : "",
                         Code_Question : Code_Question,
@@ -944,7 +946,6 @@ $rootScope.buildCheckboxPanel = function (cb) {
           });
       },
       initActionPlan : function (Code_Periode, Code_Prestataire, Code_Segment, Code_SousSegment, Code_TypePeriode, cb) {
-         console.log("ok")
           $http.get('/api/actionPlans', {
               params: {
               Code_Periode: Code_Periode,
@@ -955,7 +956,6 @@ $rootScope.buildCheckboxPanel = function (cb) {
           }
           })
           .success(function(data, status, headers, config) {
-              console.log(data)
               return cb(data[0], data[1])
           })
           .error(function(data, status, headers, config) {

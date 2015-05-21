@@ -1,0 +1,27 @@
+
+<nav role="navigation">
+    <ul role="menubar">
+        <!-- Main navigation -->
+        <li role="menuitem" ng-class="{'current': onglet == 1}"><a href="/main">Synthèse</a></li>
+        <li role="menuitem" ng-class="{'current': onglet == 2}"><a href="/indicateursClefs">Indicateurs clefs</a></li>
+        <li role="menuitem" ng-class="{'current': onglet == 3}"><a href="/contact">Raisons <br> du contact</a></li>
+        <li role="menuitem" ng-class="{'current': onglet == 4}"><a href="/reclamation">Réclamations</a></li>
+        <li role="menuitem" ng-class="{'current': onglet == 5}"><a href="/traitement">Traitement<br> justificatif</a></li>
+        <li role="menuitem" ng-class="{'current': onglet == 6}"><a href="/prise">Prise en charge <br> &amp; traitement</a></li>
+        <li role="menuitem" ng-class="{'current': onglet == 7}"><a href="/satisfaction">Satisfaction</a></li>
+        <li role="menuitem" ng-class="{'current': onglet == 8}"><a href="/canal">Changement canal</a></li>
+        <!-- Menuitem [PDF+PRINT] -->        
+    </ul>
+    <ul class="tools-set" role="menubar">
+        <li class="tools pdf" role="menuitem">
+            <a href="#">
+                <img src="assets/theme/img/pdfexport-icon.png" ng-click="report()" alt="Exporter au format PDF">
+            </a>
+        </li>
+        <li class="tools print" role="menuitem">
+            <a href="#">
+                <img src="assets/theme/img/print-icon.png" ng-click="print()" alt="Imprimer">
+            </a>
+        </li>     
+    </ul>   
+</nav>
