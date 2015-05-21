@@ -9,6 +9,7 @@ var errors = require('./components/errors');
 module.exports = function(app) {
 
   // Insert routes below
+  app.use('/api/buildCheckboxs', require('./api/buildCheckbox'));
   app.use('/api/getSousSegments', require('./api/getSousSegment'));
   app.use('/api/getSegments', require('./api/getSegment'));
   app.use('/api/getPrestataires', require('./api/getPrestataire'));

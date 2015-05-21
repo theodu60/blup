@@ -106,11 +106,13 @@ function updateData() {
   var prestataire2 = $rootScope.selection.prestataire_value2.Prestataire_Libel.toString().replace(" ", "");
   var segment = $rootScope.selection.segment_value.Segment_Libel.toString().replace(" ", "");
   var sousSegment = $rootScope.selection.sous_segment_value.Sous_Seg_Libel.toString().replace(" ", "") ;
-  
+
   var nomOnglet = 'synthesis'
   eval('$rootScope.selection.'+ nomOnglet + ' = []')
   eval('$rootScope.selection.'+ nomOnglet + '.comparaison = []')
   //---------------------------------------------
+  $rootScope.updateView(onglet, upVar.onglet.comparaison, upVar.onglet.evolution, upVar.onglet.view_value)
+  $rootScope.updateCase(prestataire1, prestataire2, segment, sousSegment, Global);
   upThis.initEff(Code_Periode, Code_Prestataire, Code_Segment, Code_SousSegment, Code_TypePeriode);
   upThis.initQuestion(onglet, function (questions) {
     $rootScope.questions = questions

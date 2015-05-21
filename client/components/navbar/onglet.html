@@ -7,17 +7,18 @@
                     <div class="selection-comparatifs" ng-if = "selection.comparaisonSelect"> 
                         <span class="selection-comparatifs-title js-down" ng-click = "ouvert = !ouvert">SELECTION DES COMPARATIFS</span>
                         <div class="selection-content" ng-class= "{'close': ouvert}">
-                            <span class="selec-titles" ng-repeat="check in checkboxPanel.segment">
-                                    <div ng-repeat="sous_segment in check.sous_segment">
-                                      <input
-                                        type="checkbox"
-                                        ng-checked="selection.indexOf(check.Code_Segment) > -1"
-                                        ng-click="toggleSelection(check, sous_segment)"
-                                        ng-model="selection.checkedbox[check.Code_Segment + '|' + sous_segment.Code_Sous_Seg].checked"
-                                        ng-disabled="selection.disable[check.Code_Segment + '|' + sous_segment.Code_Sous_Seg]"
-                                      > 
-                                      <label for="check1">{{sous_segment.Sous_Seg_Libel}}</label>
-                                    </div>
+                            <span class="selec-titles" ng-repeat="box in selection.checkboxPanel">
+                                {{box.Segment_Libel}}
+                                <div ng-repeat="sous_segment in box.sous_seg">
+                                  <input
+                                    type="checkbox"
+                                    ng-checked="selection.indexOf(box.Code_Segment) > -1"
+                                    ng-click="toggleSelection(box, sous_segment)"
+                                    ng-model="selection.checkedbox[box.Code_Segment + '|' + sous_segment.Code_Sous_Seg]"
+                                    ng-disabled="selection.disable[box.Code_Segment + '|' + sous_segment.Code_Sous_Seg]"
+                                  > 
+                                  <label for="check1">{{sous_segment.Sous_Seg_Libel}}</label>
+                                </div>
                             </span>
                             <div>
                             </div>

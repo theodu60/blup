@@ -2,6 +2,9 @@
 
 angular.module('fdjApp')
   .factory('upThis', function (upVar, $http, $rootScope, $window, $location) {
+//---------------------------------------//
+//------------------VARIABLE---------------//
+//---------------------------------------//
     $rootScope.lang = {};
     $rootScope.liste_annee = {};
     $rootScope.mois_value = {};
@@ -43,7 +46,6 @@ angular.module('fdjApp')
         }]
       }
     };
-
     $rootScope.checkboxPanel = {
       segment : [{
         Segment_Libel: "",
@@ -60,8 +62,8 @@ angular.module('fdjApp')
     $rootScope.checkboxModel = [];
     $rootScope.selection.comparaison = upVar.onglet.comparaison;
     $rootScope.selection.evolution = upVar.onglet.evolution;
-    
     $rootScope.selection.disable = [];
+
     $rootScope.view_value = true;
     $rootScope.ouvert = true;
     $rootScope.toggleCheckbox = false;
@@ -80,6 +82,7 @@ angular.module('fdjApp')
     $rootScope.Periode_Libel['11'] = "November";    
     $rootScope.Periode_Libel['12'] = "December";    
     $rootScope.isCollapsed = true;
+    $rootScope.selection.checkedbox = [];
 //---------------------------------------//
 //------------------HEADER---------------//
 //---------------------------------------//
@@ -142,250 +145,169 @@ $rootScope.swapToComparaison = function () {
   upVar.onglet.evolution = !upVar.onglet.evolution;
   $rootScope.updateData();
 }
-
-
-
-    $rootScope.initAnnee =  function (cb) {
-          $http.get('/api/getAnnees').success(function(data, status, headers, config) {    
-            try { 
-                $rootScope.liste_annee = data;
-                var indice = 0;
-                var tmp = 0;
-                for (var i in data) {
-                  if (data[i]['codePeriod'] == upVar.periode.annee.Code_Annee)
-                    indice = tmp;
-                  else
-                    tmp++;
-                }
-                $rootScope.selection.annee_value = $rootScope.liste_annee[indice];
-                return cb()
-              }
-            catch (e) {console.log(e)}
-          })
-      }
-      $rootScope.initMois =  function (cb) {
-          $http.get('/api/getMoiss', {params: {annee : $rootScope.selection.annee_value.year}
-          }).success(function(data, status, headers, config) {    
-            try { 
-                $rootScope.liste_mois = data;
-                var indice = 0;
-                var tmp = 0;
-                for (var i in data) {
-                  if (data[i]['codePeriod'] == upVar.periode.annee.Code_Annee) {
-                    indice = tmp;
-
-                  } else {
-                    tmp++;
-                  }
-                }
-                $rootScope.selection.mois_value = $rootScope.liste_mois[upVar.periode.mois.Code_Mois.toString().split('')[3]];
-                return cb()
-              }
-            catch (e) {console.log(e)}
-          })
-      }
-      $rootScope.initPrestataire1 = function (cb) {
-          $http.get('/api/getPrestataire1s').success(function(data, status, headers, config) {    
-            try { 
-                $rootScope.liste_prestataire1 = data;
-                var indice = 0;
-                var tmp = 0;
-                for (var i in data) {
-                  if (data[i]['Prestataire_Libel'].toString().replace(" ", "") == upVar.prestataire.premier.Prestataire_Libel.toString().replace(" ", ""))
-                    indice = tmp;
-                  else
-                    tmp++;
-                }
-                $rootScope.selection.prestataire_value1 = $rootScope.liste_prestataire1[indice];
-                upVar.prestataire.premier.Prestataire_Libel = $rootScope.liste_prestataire1[indice].Prestataire_Libel.toString().replace(" ", "");
-                return cb()
-              }
-            catch (e) {console.log(e)}
-          })
-      }
-      $rootScope.initPrestataire2 = function (cb) {
-          $http.get('/api/getPrestataire2s').success(function(data, status, headers, config) {    
-            try { 
-                $rootScope.liste_prestataire2 = data;
-                var indice = 0;
-                var tmp = 0;
-                for (var i in data) {
-                  if (data[i]['Prestataire_Libel'].toString().replace(" ", "") == upVar.prestataire.deuxieme.Prestataire_Libel.toString().replace(" ", ""))
-                    indice = tmp;
-                  else
-                    tmp++;
-                }
-                $rootScope.selection.prestataire_value2 = $rootScope.liste_prestataire2[indice];
-                upVar.prestataire.deuxieme.Prestataire_Libel = $rootScope.liste_prestataire2[indice].Prestataire_Libel.toString().replace(" ", "");
-                return cb()
-              }
-            catch (e) {console.log(e)}
-          })
-      }
-      $rootScope.initPrestataire =  function (prestataireLibel, cb) {
-          $http.get('/api/getPrestataires', {params: {prestataireLibel : prestataireLibel}
-          }).success(function(data, status, headers, config) {    
-                return cb(data[0].code_prestataire)
-          })
-      }
-      $rootScope.initSegment = function (cb) {
-          $http.get('/api/getSegments').success(function(data, status, headers, config) {    
-            try { 
-                $rootScope.liste_segment = data;
-                var indice = 0;
-                var tmp = 0;
-                for (var i in data) {
-                  if (data[i]['Segment_Libel'] == upVar.segmentation.segment.Segment_Libel)
-                    indice = tmp;
-                  else
-                    tmp++;
-                }
-                $rootScope.selection.segment_value = $rootScope.liste_segment[indice];
-                upVar.segmentation.segment.Segment_Libel = $rootScope.liste_segment[indice].Segment_Libel;
-                return cb ($rootScope.liste_segment[indice].Code_Segment)
-              }
-            catch (e) {console.log(e)}
-          })
-      }
-      $rootScope.initSousSegment = function (Code_Segment, cb) {
-          $http.get('/api/getSousSegments', {params: {Code_Segment : Code_Segment}
-          }).success(function(data, status, headers, config) {    
-            try { 
-                $rootScope.liste_sous_segment = data;
-                var indice = 0;
-                var tmp = 0;
-                for (var i in data) {
-                  if (data[i]['Sous_Seg_Libel'] == upVar.segmentation.sous_segment.Code_Sous_Seg)
-                    indice = tmp;
-                  else
-                    tmp++;
-                }
-                $rootScope.selection.sous_segment_value = $rootScope.liste_sous_segment[indice];
-                upVar.segmentation.sous_segment.Code_Sous_Seg = $rootScope.liste_sous_segment[indice].Code_Sous_Seg;
-                return cb ($rootScope.liste_sous_segment[indice].Code_Sous_Seg)
-              }
-            catch (e) {console.log(e)}
-          })
-      }
-
-
-    $rootScope.getLibelofCodePeriod = function (Code_Periode, cb) {
-      var tmp = parseInt(Code_Periode.toString().split('')[2] + Code_Periode.toString().split('')[3]);
-      return cb($rootScope.Periode_Libel[tmp])
-    }
-    $rootScope.getLibelofCodePeriodSynchrone = function (Code_Periode) {
-      var tmp = parseInt(Code_Periode.toString().split('')[2] + Code_Periode.toString().split('')[3]);
-      return ($rootScope.Periode_Libel[tmp])
-    }
-
-    $rootScope.comparaison = function (tab1, tab2) {
-      var res = [];
-      for (var val = 0; val < tab1.length; val++) {
-
-        if (parseInt(tab1[val]) < parseInt(tab2[val]))
-          res[val] = '<'
-        else if (parseInt(tab1[val]) > parseInt(tab2[val]))
-          res[val] = '>'
-        else if (parseInt(tab1[val]) == parseInt(tab2[val]))
-          res[val] = '=='
-        else
-          res[val] = 'NULL'
-      }
-      return (res)
-    }
-
-    $rootScope.ObjectToArray = function (object, cb) {
-      var clean = [];
-      var i = 0;
-
-      for (var x in object) {
-        clean[i] = object[x].mois;
-        i++;
-      }
-      return cb(clean)
-    }
-    //      var query = 'select table_segments.Segment_Libel, table_segments.Code_Segment, table_sous_segments.Sous_Seg_Libel, table_sous_segments.Code_Sous_Seg from table_segments, table_sous_segments where table_segments.Code_Segment != 99 and table_segments.Code_Segment = table_sous_segments.Code_Segment order by table_segments.Code_Segment';
-
-if (!$rootScope.selection.checkedbox) {
-  $rootScope.selection.checkedbox = [];
+$rootScope.initAnnee =  function (cb) {
+    $http.get('/api/getAnnees').success(function(data, status, headers, config) {    
+      try { 
+          $rootScope.liste_annee = data;
+          var indice = 0;
+          var tmp = 0;
+          for (var i in data) {
+            if (data[i]['codePeriod'] == upVar.periode.annee.Code_Annee)
+              indice = tmp;
+            else
+              tmp++;
+          }
+          $rootScope.selection.annee_value = $rootScope.liste_annee[indice];
+          return cb()
+        }
+      catch (e) {console.log(e)}
+    })
 }
-function getSousSeg (Code_Segment, indice, cb) {
-  var query = 'SELECT Sous_Seg_Libel, Code_Sous_Seg FROM fdj.table_sous_segments where Code_Segment = '+Code_Segment+';';
-    $http.get('/api/querys', 
-    {params: {query : query}
-    }).success(function(data, status, headers, config) {    
-      $rootScope.checkboxPanel.segment[indice].sous_segment =  data
-      for (var i in data) {
-        var value = Code_Segment + '|' + data[i].Code_Sous_Seg
-      $rootScope.selection.checkedbox[value] = {}
-           $rootScope.selection.checkedbox[value].checked = false
-      }
-      return cb()
-  })
-}
-function simpleQuery (query, cb) {
-    $http.get('/api/querys', 
-    {params: {query : query}
-    }).success(function(data, status, headers, config) {    
-      return cb(data)
-  })
-}
-
-
-
-$rootScope.toggleSelection = function (segment, sous_segment) {
-  var res = {
-    segment: segment.Code_Segment,
-    sous_segment: segment.Segment_Libel,
-    Sous_Seg_Libel: sous_segment.Sous_Seg_Libel,
-    Code_Sous_Seg: sous_segment.Code_Sous_Seg
-  }
-  var res2 = segment.Code_Segment + "|" + segment.Segment_Libel + "|" +sous_segment.Code_Sous_Seg + "|" +sous_segment.Sous_Seg_Libel
-  var idx = $rootScope.checkboxModel.indexOf(res2);
-  if (idx > -1) {
-    $rootScope.checkboxModel.splice(idx, 1);
-
-  } else {
-    $rootScope.checkboxModel.push(res2);
-  }
-}
-
-$rootScope.initCheckbox = function () {
-  $rootScope.buildCheckboxPanel();
-  for (var i in $rootScope.selection.checkedbox) {
-    $rootScope.selection.checkedbox[i].checked = false
-  }
-  for (var i in $rootScope.checkboxModel) {
-    var Code_Segment = $rootScope.checkboxModel[i].split('|')[0];
-    var Code_Sous_Seg = $rootScope.checkboxModel[i].split('|')[2];
-    var indice = Code_Segment + '|' + Code_Sous_Seg;
-    $rootScope.selection.checkedbox[indice].checked = true
-  }
-}
-
-$rootScope.buildCheckboxPanel = function () {
-  var query = 'SELECT table_segments.Segment_Libel, table_segments.Code_Segment FROM table_segments where table_segments.Code_Segment != 99 and  table_segments.Code_Segment != 0 order by table_segments.Code_Segment';
-    $http.get('/api/querys', {params: {query : query}
+$rootScope.initMois =  function (cb) {
+    $http.get('/api/getMoiss', {params: {annee : $rootScope.selection.annee_value.year}
     }).success(function(data, status, headers, config) {    
       try { 
-        for (var segment in data) {
-          $rootScope.checkboxPanel.segment[segment] = {
-            Segment_Libel: data[segment].Segment_Libel,
-            Code_Segment: data[segment].Code_Segment,
-            sous_segment : []
-          }
-        }
-        for (var segment in $rootScope.checkboxPanel.segment) {
-          var Code_Segment = $rootScope.checkboxPanel.segment[segment].Code_Segment
-          getSousSeg(Code_Segment, segment,  function () {
+          $rootScope.liste_mois = data;
+          var indice = 0;
+          var tmp = 0;
+          for (var i in data) {
+            if (data[i]['codePeriod'] == upVar.periode.annee.Code_Annee) {
+              indice = tmp;
 
-          })
+            } else {
+              tmp++;
+            }
+          }
+          $rootScope.selection.mois_value = $rootScope.liste_mois[upVar.periode.mois.Code_Mois.toString().split('')[3]];
+          return cb()
         }
-      } catch (e) {
-        console.log(e)
-      }
+      catch (e) {console.log(e)}
     })
-}                                                 
+}
+$rootScope.initPrestataire1 = function (cb) {
+    $http.get('/api/getPrestataire1s').success(function(data, status, headers, config) {    
+      try { 
+          $rootScope.liste_prestataire1 = data;
+          var indice = 0;
+          var tmp = 0;
+          for (var i in data) {
+            if (data[i]['Prestataire_Libel'].toString().replace(" ", "") == upVar.prestataire.premier.Prestataire_Libel.toString().replace(" ", ""))
+              indice = tmp;
+            else
+              tmp++;
+          }
+          $rootScope.selection.prestataire_value1 = $rootScope.liste_prestataire1[indice];
+          upVar.prestataire.premier.Prestataire_Libel = $rootScope.liste_prestataire1[indice].Prestataire_Libel.toString().replace(" ", "");
+          return cb()
+        }
+      catch (e) {console.log(e)}
+    })
+}
+$rootScope.initPrestataire2 = function (cb) {
+    $http.get('/api/getPrestataire2s').success(function(data, status, headers, config) {    
+      try { 
+          $rootScope.liste_prestataire2 = data;
+          var indice = 0;
+          var tmp = 0;
+          for (var i in data) {
+            if (data[i]['Prestataire_Libel'].toString().replace(" ", "") == upVar.prestataire.deuxieme.Prestataire_Libel.toString().replace(" ", ""))
+              indice = tmp;
+            else
+              tmp++;
+          }
+          $rootScope.selection.prestataire_value2 = $rootScope.liste_prestataire2[indice];
+          upVar.prestataire.deuxieme.Prestataire_Libel = $rootScope.liste_prestataire2[indice].Prestataire_Libel.toString().replace(" ", "");
+          return cb()
+        }
+      catch (e) {console.log(e)}
+    })
+}
+$rootScope.initPrestataire =  function (prestataireLibel, cb) {
+    $http.get('/api/getPrestataires', {params: {prestataireLibel : prestataireLibel}
+    }).success(function(data, status, headers, config) {    
+          return cb(data[0].code_prestataire)
+    })
+}
+$rootScope.initSegment = function (cb) {
+    $http.get('/api/getSegments').success(function(data, status, headers, config) {    
+      try { 
+          $rootScope.liste_segment = data;
+          var indice = 0;
+          var tmp = 0;
+          for (var i in data) {
+            if (data[i]['Segment_Libel'] == upVar.segmentation.segment.Segment_Libel)
+              indice = tmp;
+            else
+              tmp++;
+          }
+          $rootScope.selection.segment_value = $rootScope.liste_segment[indice];
+          upVar.segmentation.segment.Segment_Libel = $rootScope.liste_segment[indice].Segment_Libel;
+          return cb ($rootScope.liste_segment[indice].Code_Segment)
+        }
+      catch (e) {console.log(e)}
+    })
+}
+$rootScope.initSousSegment = function (Code_Segment, cb) {
+    $http.get('/api/getSousSegments', {params: {Code_Segment : Code_Segment}
+    }).success(function(data, status, headers, config) {    
+      try { 
+          $rootScope.liste_sous_segment = data;
+          var indice = 0;
+          var tmp = 0;
+          for (var i in data) {
+            if (data[i]['Sous_Seg_Libel'] == upVar.segmentation.sous_segment.Code_Sous_Seg)
+              indice = tmp;
+            else
+              tmp++;
+          }
+          $rootScope.selection.sous_segment_value = $rootScope.liste_sous_segment[indice];
+          upVar.segmentation.sous_segment.Code_Sous_Seg = $rootScope.liste_sous_segment[indice].Code_Sous_Seg;
+          return cb ($rootScope.liste_sous_segment[indice].Code_Sous_Seg)
+        }
+      catch (e) {console.log(e)}
+    })
+}
+//---------------------------------------//
+//------Convertion donnees---------------//
+//---------------------------------------//
+$rootScope.getLibelofCodePeriod = function (Code_Periode, cb) {
+  var tmp = parseInt(Code_Periode.toString().split('')[2] + Code_Periode.toString().split('')[3]);
+  return cb($rootScope.Periode_Libel[tmp])
+}
+$rootScope.getLibelofCodePeriodSynchrone = function (Code_Periode) {
+  var tmp = parseInt(Code_Periode.toString().split('')[2] + Code_Periode.toString().split('')[3]);
+  return ($rootScope.Periode_Libel[tmp])
+}
+$rootScope.ObjectToArray = function (object, cb) {
+  var clean = [];
+  var i = 0;
+
+  for (var x in object) {
+    clean[i] = object[x].mois;
+    i++;
+  }
+  return cb(clean)
+}
+
+
+//---------------------------------------//
+//------------------COMPARAISON----------//
+//---------------------------------------//
+$rootScope.comparaison = function (tab1, tab2) {
+  var res = [];
+  for (var val = 0; val < tab1.length; val++) {
+
+    if (parseInt(tab1[val]) < parseInt(tab2[val]))
+      res[val] = '<'
+    else if (parseInt(tab1[val]) > parseInt(tab2[val]))
+      res[val] = '>'
+    else if (parseInt(tab1[val]) == parseInt(tab2[val]))
+      res[val] = '=='
+    else
+      res[val] = 'NULL'
+  }
+  return (res)
+}
 $rootScope.updateIndicateurClefsCompTab = function  (nomColonne, questions, Code_Periode, Code_Prestataire, Code_Segment, Code_SousSegment, Code_Type_periode, onglet, nomOnglet,  index,tableau,  cb) {
   $http.get('/api/getTimeLineSyntheses', {
       params: {
@@ -422,7 +344,7 @@ $rootScope.updateComparateur = function (onglet, Code_Periode, Code_Prestataire,
   eval('$rootScope.selection.' + nomOnglet + '.comparaison['+index+'] = []')
   eval('$rootScope.selection.' + nomOnglet + '.comparaison['+index+'].tab = []')
   var tableau = [];
-  var Code_PrestataireGlobal = Code_Prestataire.toString()[0] + 0;
+  var Code_PrestataireGlobal = parseInt(Code_Prestataire.toString()[0]) + 0;
   console.log(Code_PrestataireGlobal)
   if (prestataire1 == Global && prestataire2 == Global && segment == Global && sousSegment == Global) {
     $rootScope.updateIndicateurClefsCompTab("ServiceClient", questions, Code_Periode, 0, 0, 0, Code_TypePeriode, onglet, nomOnglet, index, tableau, function (tableau){
@@ -442,7 +364,6 @@ $rootScope.updateComparateur = function (onglet, Code_Periode, Code_Prestataire,
   else if (prestataire1 != Global && prestataire2 != Global && segment == Global && sousSegment == Global){
     $rootScope.updateIndicateurClefsCompTab("ServiceClient", questions, Code_Periode, 0, 0, 0, Code_TypePeriode, onglet, nomOnglet,  index, tableau, function (tableau){
       $rootScope.updateIndicateurClefsCompTab("Global", questions, Code_Periode, Code_PrestataireGlobal, 0, 0, Code_TypePeriode, onglet, nomOnglet,  index, tableau, function (tableau){
-        alert(prestataire2)
         $rootScope.updateIndicateurClefsCompTab(prestataire2, questions, Code_Periode, Code_Prestataire, 0, 0, Code_TypePeriode, onglet, nomOnglet,  index, tableau, function (tableau){
           return cb(tableau)
         });            
@@ -495,6 +416,10 @@ $rootScope.updateComparateur = function (onglet, Code_Periode, Code_Prestataire,
     alert("combinaison inconnue")
    }
 }
+//---------------------------------------//
+//------------------BAR---------------//
+//---------------------------------------//
+
 $rootScope.buildChart = function (indice, nomOnglet, onglet, Code_Question, Code_Periode, Code_Prestataire, Code_Segment, Code_SousSegment, Code_TypePeriode, cb) {
     $http.get('/api/buildCharts', {
         params: {
@@ -609,17 +534,9 @@ $rootScope.updateComparateurBar = function (onglet, Code_Periode, Code_Prestatai
     alert("combinaison inconnue")
    }
 }
-
-$rootScope.buildQuery = function (questions, Code_Periode, Code_Prestataire, Code_Segment, Code_SousSegment, Code_Type_periode, cb ) {
-  var query = "";
-    for (var question in questions) {
-      if (question == 0)
-        query = '(SELECT ROUND((resul * 100),0) as "mois" from base where code_prestataire = "'+Code_Prestataire+'" and Code_segment = "'+Code_Segment+'" and code_sub_segment = "'+Code_SousSegment+'" and code_type_periode = "'+Code_Type_periode+'" and code_periode = "'+Code_Periode+'" and code_question = "'+questions[question].Code_Question+'" and indicateur = "'+questions[question].indicateur+'" limit 1)';
-      else
-        query = '(SELECT ROUND((resul * 100),0) as "mois" from base where code_prestataire = "'+Code_Prestataire+'" and Code_segment = "'+Code_Segment+'" and code_sub_segment = "'+Code_SousSegment+'" and code_type_periode = "'+Code_Type_periode+'" and code_periode = "'+Code_Periode+'" and code_question = "'+questions[question].Code_Question+'" and indicateur = "'+questions[question].indicateur+'"' + " limit 1 ) union all " + query;
-    }                      
-    return cb(query);
-}
+//---------------------------------------//
+//------------------VIEWS---------------//
+//---------------------------------------//
 $rootScope.updateCase = function (prestataire1, prestataire2, segment, sousSegment, Global) {
   $rootScope.templateCas1 = false;
   $rootScope.templateCas2 = false;
@@ -658,12 +575,6 @@ $rootScope.updateCase = function (prestataire1, prestataire2, segment, sousSegme
     alert("combinaison inconnue")
 }
 $rootScope.updateView = function (onglet, comparaison, evolution, graphique) {
-    console.log("onglet "  + onglet)
-    console.log("comparaison "  + comparaison)
-    console.log("evolution "  + evolution)
-    console.log("graphique "  + graphique)
-
-
   //PAGE SATISFACTION
   if ((onglet == 7) && (comparaison == true) && (evolution == false) && (graphique == true)) {
     $rootScope.selection.evolution = false;
@@ -690,46 +601,120 @@ $rootScope.updateView = function (onglet, comparaison, evolution, graphique) {
     $rootScope.selection.comparaisonTabBar = true;
     $rootScope.selection.comparaisonSelect = true;
 
-  //PAGE INDICATEURSCLEFS/CONTACT
-  } else if ((onglet != 7) && (comparaison == false) && (evolution == true) && (graphique == true)) {
+  //PAGE INDICATEURSCLEFS
+  } else if ((onglet == 2) && (comparaison == false) && (evolution == true) && (graphique == true)) {
     $rootScope.selection.evolution = true;
     $rootScope.selection.comparaison = false;
     $rootScope.view_value = true;
     $rootScope.selection.comparaisonTabBar = false;
     $rootScope.selection.comparaisonSelect = false;
-  } else if ((onglet != 7) && (comparaison == true) && (evolution == false) && (graphique == true)) {
+  } else if ((onglet == 2) && (comparaison == true) && (evolution == false) && (graphique == true)) {
     $rootScope.selection.evolution = false;
     $rootScope.selection.comparaison = true;
     $rootScope.view_value = true;
     $rootScope.selection.comparaisonTabBar = true;
     $rootScope.selection.comparaisonSelect = true;
-  } else if ((onglet != 7) && (comparaison == true) && (evolution == false) && (graphique == false)) {
+  } else if ((onglet == 2) && (comparaison == true) && (evolution == false) && (graphique == false)) {
     $rootScope.selection.evolution = false;
     $rootScope.selection.comparaison = true;
     $rootScope.view_value = false;
     $rootScope.selection.comparaisonTabBar = true;
     $rootScope.selection.comparaisonSelect = true;
-  } else if ((onglet != 7) && (comparaison == false) && (evolution == true) && (graphique == false)) {
+  } else if ((onglet == 2) && (comparaison == false) && (evolution == true) && (graphique == false)) {
     $rootScope.selection.evolution = true;
     $rootScope.selection.comparaison = false;
     $rootScope.view_value = true;
     $rootScope.selection.comparaisonTabBar = false;
     $rootScope.selection.comparaisonSelect = false;
+
+    //PAGE CONTACT
+  } else if (((onglet != 7) && (onglet != 2)) && (comparaison == false) && (evolution == true)) {
+    $rootScope.selection.evolution = true;
+    $rootScope.selection.comparaison = false;
+    $rootScope.view_value = true;
+    $rootScope.selection.comparaisonTabBar = false;
+    $rootScope.selection.comparaisonSelect = true;
+  } else if (((onglet != 7) && (onglet != 2)) && (comparaison == true) && (evolution == false)) {
+    $rootScope.selection.evolution = false;
+    $rootScope.selection.comparaison = true;
+    $rootScope.view_value = true;
+    $rootScope.selection.comparaisonTabBar = false;
+    $rootScope.selection.comparaisonSelect = true;
   } else {
     console.log("combinaison inconnu")
     console.log("onglet "  + onglet)
     console.log("comparaison "  + comparaison)
     console.log("evolution "  + evolution)
     console.log("graphique "  + graphique)
-
   }
+
 }
+
+
+
+
+
+//---------------------------------------//
+//------------PDF ET PRINT---------------//
+//---------------------------------------//
 $rootScope.print = function(divName) {
     $window.print();
 } 
 $rootScope.report = function(divName) {
     $location.path('/report');
 } 
+//---------------------------------------//
+//------------------JUNK---------------//
+//---------------------------------------//
+function simpleQuery (query, cb) {
+    $http.get('/api/querys', 
+    {params: {query : query}
+    }).success(function(data, status, headers, config) {    
+      return cb(data)
+  })
+}
+
+
+
+$rootScope.toggleSelection = function (segment, sous_segment) {
+  var res = {
+    segment: segment.Code_Segment,
+    sous_segment: segment.Segment_Libel,
+    Sous_Seg_Libel: sous_segment.Sous_Seg_Libel,
+    Code_Sous_Seg: sous_segment.Code_Sous_Seg
+  }
+  var res2 = segment.Code_Segment + "|" + segment.Segment_Libel + "|" +sous_segment.Code_Sous_Seg + "|" +sous_segment.Sous_Seg_Libel
+  var idx = $rootScope.checkboxModel.indexOf(res2);
+  if (idx > -1) {
+    $rootScope.checkboxModel.splice(idx, 1);
+  } else {
+    $rootScope.checkboxModel.push(res2);
+  }
+
+  for (var i in $rootScope.selection.checkedbox) {
+    $rootScope.selection.checkedbox[i] = false
+  }
+  for (var i in $rootScope.checkboxModel) {
+    var Code_Segment = $rootScope.checkboxModel[i].split('|')[0];
+    var Code_Sous_Seg = $rootScope.checkboxModel[i].split('|')[2];
+    var indice = Code_Segment + '|' + Code_Sous_Seg;
+    $rootScope.selection.checkedbox[indice] = true
+  }
+}
+
+$rootScope.initCheckbox = function () {
+
+}
+$rootScope.buildCheckboxPanel = function (cb) {
+    $http.get('/api/buildCheckboxs').success(function(data, status, headers, config) {    
+      try { 
+            $rootScope.selection.checkboxPanel = data
+            return cb ()
+      } catch (e) {
+        console.log(e)
+      }
+    })
+}                                                 
     upVar.login.local = "";
     return {
       someMethod: function () {

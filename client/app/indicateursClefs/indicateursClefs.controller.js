@@ -13,8 +13,10 @@ function initMaster () {
         $rootScope.initPrestataire2(function () {
           $rootScope.initSegment(function (Code_Segment) {
             $rootScope.initSousSegment(Code_Segment, function (Code_SousSegment) {
+              $rootScope.buildCheckboxPanel(function () {
               $rootScope.currentTpl = '/tpl.html';
               updateData();
+              });
             });
           });
         });
@@ -96,7 +98,6 @@ $rootScope.incrementerIndex = function (){
 //-----------FONCTION PRINCIPAL-----------//
 //---------------------------------------//
 $rootScope.updateData = function () {
-  $rootScope.initCheckbox();
   updateData();
 }
 
