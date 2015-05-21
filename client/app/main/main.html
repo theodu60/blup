@@ -1,0 +1,486 @@
+<div ng-include="'components/navbar/header.html'"></div>
+<div ng-include="'components/navbar/navbar.html'"></div>
+<!-- PARTIE EVOLUTION SUR 6 MOIS-->
+<!-- TEST AVEC DIV BOOTSTRAP -->
+<div class="row">
+    <div class="row">
+        <div class="col-xs-push-3 col-xs-7">
+            <div class="row">
+                <div class="col-xs-2 firsttitle">&nbsp;</div>
+                <div class="col-xs-12 top-tab-active">{{selection.prestataire_value1.Prestataire_Libel}} | {{selection.prestataire_value2.Prestataire_Libel}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="row grosTitre firsttitle" >
+                <p>INDICATEURS GLOBAUX<br/>
+                <span class="smalltitle">(Evolution sur les 6 derniers mois)</span></p>
+            </div>
+            <div class="row indic ligneBottom"  ng-class="{'ligneBottomEff': $index === 0}" ng-repeat="q in questions">
+                {{q.libel_appli_1}}<br/><span class="under-indic">{{q.libel_appli_2}}</span>
+            </div>
+        </div>
+        <div class="col-xs-7" ng-if="loading">
+            <div class="row"><br>
+                <div class="col-xs-3">
+                    <img src="../../assets/images/loading.gif" class="img-responsive">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-7" ng-if="!loading">
+            <div class="row"> 
+                <div class= "col-xs-2 month" ng-class="{'backgroundBleu': $index === selection.synthesis.evolution6Mois.length - 1};" ng-repeat="evolution6Mois in selection.synthesis.evolution6Mois track by $index">{{evolution6Mois.nom}}</div>
+            </div>
+            <div class="row" >
+                <div class="col-xs-2" ng-repeat="evolution6Mois in selection.synthesis.evolution6Mois track by $index">
+                    <div class="row ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0};"   ng-repeat="mois in evolution6Mois.col track by $index">
+                        {{mois}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<!-- PARTIE COMPARAISON-->
+<div class="row">
+    <div class="row">
+        <div class="col-xs-3" ng-if="templateCas1 || templateCas2">
+            <div class="row grosTitre firsttitle" >
+                <p>INDICATEURS GLOBAUX<br/>
+                <span class="smalltitle">(Comparaison des supports)</span></p>
+            </div>
+            <div class="row indic ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="q in questions">
+                {{q.libel_appli_1}}<br/><span class="under-indic">{{q.libel_appli_2}}</span>
+            </div>
+        </div>
+        <div class="col-xs-3" ng-if="templateCas3 || templateCas4 || templateCas5 || templateCas6 || templateCas7 || templateCas8">
+            <div class="row grosTitre comparationTitle" >
+                <p>INDICATEURS GLOBAUX<br/>
+                <span class="smalltitle">(Comparaison des supports)</span></p>
+            </div>
+            <div class="row indic ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="q in questions">
+                {{q.libel_appli_1}}<br/><span class="under-indic">{{q.libel_Donnees}}</span>
+            </div>
+        </div>
+        <div class="col-xs-1" ng-if="templateCas1" ng-repeat="comparaison in selection.synthesis.comparaison">
+            <div   ng-repeat="tab in comparaison.tab">
+                <div class="row">
+                    <div class= "row month niveau1" >{{tab.nom}}</div>
+                </div>
+                <div class="row">
+                    <div class="row ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in tab.col track by $index">
+                        {{col}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4" ng-if="templateCas2" ng-repeat="comparaison in selection.synthesis.comparaison">
+            <div class="col-xs-6" ng-repeat="tab in comparaison.tab">
+                <div class="row">
+                    <div class= "col-xs-12 month niveau1" ng-class="{'niveau2': $index === 1}">{{tab.nom}}</div>
+                </div>
+                <div class="row" >
+                    <div class="col-xs-9">
+                        <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in tab.col track by $index">{{col}}</div>
+                        
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="hauteurDefault ligneBottom" ng-repeat="evo in tab.evo track by $index">
+                            <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                            <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                            <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                            <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4" ng-if="templateCas3" ng-repeat="comparaison in selection.synthesis.comparaison">
+            <div class="col-xs-12 smSpaceToLeft" ng-model="comparaison.tab">
+                <div class="row" >
+                    <div class= "col-xs-4">
+                        <div class="row">
+                            <div class= "col-xs-12 top-tab-active-0 moyenTitre" >{{comparaison.tab[0].nom}}</div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-xs-8">
+                                <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[0].col track by $index">{{col}}</div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[0].evo track by $index">
+                                    <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                    <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                    <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                    <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-12 top-tab-active-1a ">{{selection.prestataire_value1.Prestataire_Libel}}</div>
+                        </div>
+                        <div class="row">
+                            <div class= "col-xs-6">
+                                <div class="row">
+                                    <div class= "col-xs-12 top-tab-active-1b niveau2">{{comparaison.tab[1].nom}}</div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col-xs-8">
+                                        <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[1].col track by $index">{{col}}</div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[1].evo track by $index">
+                                            <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                            <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                            <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                            <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class= "col-xs-6">
+                                <div class="row">
+                                    <div class= "col-xs-12 top-tab-active-1b gris">{{comparaison.tab[2].nom}}</div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col-xs-8">
+                                        <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[2].col track by $index">{{col}}</div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[2].evo track by $index">
+                                            <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                            <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                            <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                            <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6" ng-if="templateCas4" ng-repeat="comparaison in selection.synthesis.comparaison">
+            <div ng-if="templateCas4" class="col-xs-12" ng-model="comparaison.tab">
+                <div class="row" >
+                    <div class= "col-xs-2">
+                            <div class="row">
+                                <div class= "col-xs-12 top-tab-active-0bis moyenTitrebis niveau1" >{{comparaison.tab[0].nom}}</div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-xs-7">
+                                    <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[0].col track by $index">{{col}}</div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[0].evo track by $index">
+                                        <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                        <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                        <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                        <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>  
+                    <div class="col-xs-9">
+                        <div class="row">
+                            <div class="col-xs-9 top-tab-active-1abis niveau2">{{selection.prestataire_value1.Prestataire_Libel}}</div>
+                        </div>
+                        <div class="row">
+                            <div class= "col-xs-3">
+                                <div class="row">
+                                    <div class= "col-xs-12 top-tab-active-1bis niveau2">{{comparaison.tab[1].nom}}</div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col-xs-8">
+                                        <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[1].col track by $index">{{col}}</div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[1].evo track by $index">
+                                            <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                            <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                            <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                            <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                             
+                            <div class= "col-xs-6">
+                                <div class="row">
+                                    <div class= "col-xs-12 top-tab-active-1abis gris niveau3">{{selection.prestataire_value2.Prestataire_Libel}}</div>
+                                </div>                                
+                                <div class="row">
+                                    <div class= "col-xs-6">
+                                        <div class="row">
+                                            <div class= "col-xs-12 top-tab-active-1abis niveau3">{{comparaison.tab[2].nom}}</div>
+                                        </div>
+                                        <div class="row" >
+                                            <div class="col-xs-8">
+                                                <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[2].col track by $index">{{col}}</div>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[2].evo track by $index">
+                                                    <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                                    <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                                    <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                                    <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class= "col-xs-6">
+                                        <div class="row">
+                                            <div class= "col-xs-12 top-tab-active-1abis niveau4">{{comparaison.tab[3].nom}}</div>
+                                        </div>
+                                        <div class="row" >
+                                            <div class="col-xs-8">
+                                                <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}" ng-repeat="col in comparaison.tab[3].col track by $index">{{col}}</div>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[3].evo track by $index">
+                                                    <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                                    <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                                    <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                                    <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4" ng-if="templateCas5" ng-repeat="comparaison in selection.synthesis.comparaison">
+            <div class="row">
+                <div class= "col-xs-12 month niveau1" ng-class="{'niveau2': $index === 1}">SERVICE CLIENT</div>
+            </div>
+            <div class="row">
+            <div class="col-xs-6" ng-repeat="tab in comparaison.tab">
+                <div class="row">
+                    <div class= "col-xs-12 month niveau1" ng-class="{'niveau2': $index === 1}">{{tab.nom}}</div>
+                </div>
+                <div class="row" >
+                    <div class="col-xs-9">
+                        <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in tab.col track by $index">{{col}}</div>
+                        
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="hauteurDefault ligneBottom" ng-repeat="evo in tab.evo track by $index">
+                            <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                            <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                            <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                            <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+        <div class="col-xs-4" ng-if="templateCas6" ng-repeat="comparaison in selection.synthesis.comparaison">
+            <div class="col-xs-12 smSpaceToLeft" ng-model="comparaison.tab">
+                <div class="row" >
+                    <div class= "col-xs-4">
+                        <div class="row">
+                            <div class= "col-xs-12 top-tab-active-0 moyenTitre" >{{comparaison.tab[0].nom}}</div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-xs-8">
+                                <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[0].col track by $index">{{col}}</div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[0].evo track by $index">
+                                    <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                    <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                    <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                    <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-12 top-tab-active-1a niveau3">{{selection.prestataire_value1.Prestataire_Libel}}</div>
+                        </div>
+                        <div class="row">
+                            <div class= "col-xs-6">
+                                <div class="row">
+                                    <div class= "col-xs-12 top-tab-active-1b niveau3">{{comparaison.tab[1].nom}}</div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col-xs-8">
+                                        <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[1].col track by $index">{{col}}</div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[1].evo track by $index">
+                                            <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                            <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                            <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                            <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class= "col-xs-6">
+                                <div class="row">
+                                    <div class= "col-xs-12 top-tab-active-1b niveau4">{{comparaison.tab[2].nom}}</div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col-xs-8">
+                                        <div class="ss-num-active-black ligneBottom " ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[2].col track by $index">{{col}}</div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[2].evo track by $index">
+                                            <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                            <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                            <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                            <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4" ng-if="templateCas7" ng-repeat="comparaison in selection.synthesis.comparaison">
+            <div class="row">
+                <div class= "col-xs-12 month niveau1" ng-class="{'niveau2': $index === 1}">SERVICE CLIENT</div>
+            </div>
+            <div class="row">
+            <div class="col-xs-6" ng-repeat="tab in comparaison.tab">
+                <div class="row">
+                    <div class= "col-xs-12 month niveau1" ng-class="{'niveau4': $index === 1}">{{tab.nom}}</div>
+                </div>
+                <div class="row" >
+                    <div class="col-xs-9">
+                        <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in tab.col track by $index">{{col}}</div>
+                        
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="hauteurDefault ligneBottom" ng-repeat="evo in tab.evo track by $index">
+                            <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                            <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                            <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                            <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+                <div class="col-xs-4" ng-if="templateCas8" ng-repeat="comparaison in selection.synthesis.comparaison">
+            <div class="col-xs-12 smSpaceToLeft" ng-model="comparaison.tab">
+                <div class="row" >
+                    <div class= "col-xs-4">
+                        <div class="row">
+                            <div class= "col-xs-12 top-tab-active-0 moyenTitre" >{{comparaison.tab[0].nom}}</div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-xs-8">
+                                <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[0].col track by $index">{{col}}</div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[0].evo track by $index">
+                                    <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                    <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                    <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                    <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-12 top-tab-active-1a niveau2">{{selection.prestataire_value1.Prestataire_Libel}}</div>
+                        </div>
+                        <div class="row">
+                            <div class= "col-xs-6">
+                                <div class="row">
+                                    <div class= "col-xs-12 top-tab-active-1b niveau2">{{comparaison.tab[1].nom}}</div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col-xs-8">
+                                        <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[1].col track by $index">{{col}}</div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[1].evo track by $index">
+                                            <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                            <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                            <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                            <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class= "col-xs-6">
+                                <div class="row">
+                                    <div class= "col-xs-12 top-tab-active-1b niveau3">{{comparaison.tab[2].nom}}</div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col-xs-8">
+                                        <div class="ss-num-active-black ligneBottom" ng-class="{'ligneBottomEff': $index === 0}"  ng-repeat="col in comparaison.tab[2].col track by $index">{{col}}</div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="hauteurDefault" ng-repeat="evo in comparaison.tab[2].evo track by $index">
+                                            <div ng-if="evo == 'NULL'"><img src="../assets/theme/img/up-gray.png"/></div>
+                                            <div ng-if="evo == '>'"><img src="../assets/theme/img/up-green.png"/></div>
+                                            <div ng-if="evo == '<'"><img src="../assets/theme/img/down-red.png"/></div>
+                                            <div ng-if="evo == '=='"><img src="../assets/theme/img/up-gray.png"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<!-- PARTIE PLAN ACTION-->
+<div class="row">
+    <div class="row">
+        <div class="col-xs-push-2 col-xs-7">
+            <div class="row">
+                <div class="col-xs-12 top-tab-active">
+                    {{selection.prestataire_value1.Prestataire_Libel}} | {{selection.prestataire_value2.Prestataire_Libel}} - Plan Action
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2 grosTitre firsttitle"><p>TOPS / FLOPS</p></div>
+    	<div class="col-xs-3 topflop">LES TOPS</div>
+        <div class="col-xs-1"></div>
+    	<div class="col-xs-3 topflop">LES FLOPS</div>
+    </div>
+    <div class="row" ng-repeat="item in selection.planAction  track by $index">
+        <div class="col-xs-2 ligneBottom"></div>
+        <div class="col-xs-3 ligneBottom">
+            <div class="row">
+                <div class="col-xs-9 typotopflop">{{item.QuestionGood}}</div>
+                <div class="col-xs-3 top-num-green">{{item.resulGood}}%</div>
+            </div>
+        </div>
+        <div class="col-xs-1 ligneBottom " ></div>
+        <div class="col-xs-3 ligneBottom">
+            <div class="row">
+                <div class="col-xs-9 typotopflop">{{item.QuestionBad}}</div>
+                <div class="col-xs-3 flop-num-red">{{item.resulBad}}%</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-include="'components/navbar/footer.html'"></div>

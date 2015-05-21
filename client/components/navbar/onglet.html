@@ -1,0 +1,40 @@
+            <div class="tool-wrapper">
+                <div>
+                    <ul class="switch-view">
+                        <li ng-class="{'selected': selection.comparaison}"><a href="#" ng-click="swapToEvolution()">comparaison</a></li>
+                        <li ng-class="{'selected': selection.evolution}"><a href="#" ng-click="swapToComparaison()">évolution</a></li>
+                    </ul>
+                    <div class="selection-comparatifs" ng-if = "selection.comparaisonSelect"> 
+                        <span class="selection-comparatifs-title js-down" ng-click = "ouvert = !ouvert">SELECTION DES COMPARATIFS</span>
+                        <div class="selection-content" ng-class= "{'close': ouvert}">
+                            <span class="selec-titles" ng-repeat="check in checkboxPanel.segment">
+                                    <div ng-repeat="sous_segment in check.sous_segment">
+                                      <input
+                                        type="checkbox"
+                                        ng-checked="selection.indexOf(check.Code_Segment) > -1"
+                                        ng-click="toggleSelection(check, sous_segment)"
+                                        ng-model="selection.checkedbox[check.Code_Segment + '|' + sous_segment.Code_Sous_Seg].checked"
+                                        ng-disabled="selection.disable[check.Code_Segment + '|' + sous_segment.Code_Sous_Seg]"
+                                      > 
+                                      <label for="check1">{{sous_segment.Sous_Seg_Libel}}</label>
+                                    </div>
+                            </span>
+                            <div>
+                            </div>
+                            <input type="submit" ng-click = "ouvert = true; updateData()" value="OK">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="switch-format" ng-if = "selection.comparaisonTabBar">
+                <ul>
+                    <li><a href="#" ng-click="toggleView()" ng-if="view_value"><img src="assets/theme/img/graphicon-1-active.png" alt=""></a></li>
+                    <li><a href="#" ng-click="toggleView()" ng-if="!view_value"><img src="assets/theme/img/graphicon-1.png" alt=""></a></li>
+
+                    <li><a href="#" ng-click="toggleView()" ng-if="!view_value"><img src="assets/theme/img/graphicon-2-active.png" alt=""></a></li>
+                    <li><a href="#" ng-click="toggleView()" ng-if="view_value"><img src="assets/theme/img/graphicon-2.png" alt=""></a></li>
+
+                </ul>
+            </div>
+            
+

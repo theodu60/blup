@@ -1,0 +1,115 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <script src="app/js-highchart/jquery.js"></script>
+
+        <!-- THEME FDJ -->
+      <link rel="stylesheet" href="assets/theme/css/reset.css">
+      <link rel="stylesheet" href="assets/theme/css/square.css">
+      <link rel="stylesheet" href="assets/theme/css/style.css">
+
+
+    <script src="app/js-highchart/highstock.src.js"></script>
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(client) app/vendor.css -->
+      <!-- bower:css -->
+      <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+      <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css" />
+      <link rel="stylesheet" href="../bower_components/angular-carousel/dist/angular-carousel.css" />
+      <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,client}) app/app.css -->
+    <link rel="stylesheet" href="app/app.css">
+      <!-- injector:css -->
+      <link rel="stylesheet" href="app/app.css">
+      <link rel="stylesheet" href="app/canal/canal.css">
+      <link rel="stylesheet" href="app/contact/contact.css">
+      <link rel="stylesheet" href="app/indicateursClefs/indicateursClefs.css">
+      <link rel="stylesheet" href="app/login/login.css">
+      <link rel="stylesheet" href="app/main/main.css">
+      <link rel="stylesheet" href="app/prise/prise.css">
+      <link rel="stylesheet" href="app/reclamation/reclamation.css">
+      <link rel="stylesheet" href="app/report/report.css">
+      <link rel="stylesheet" href="app/satisfaction/satisfaction.css">
+      <link rel="stylesheet" href="app/traitement/traitement.css">
+      <link rel="stylesheet" href="components/modal/modal.css">
+      <!-- endinjector -->
+    <!-- endbuild -->
+  </head>
+  <body ng-app="fdjApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div ui-view=""></div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    <!-- build:js({client,node_modules}) app/vendor.js -->
+      <!-- bower:js -->
+      <script src="../bower_components/jquery/dist/jquery.js"></script>
+      <script src="../bower_components/angular/angular.js"></script>
+      <script src="../bower_components/angular-resource/angular-resource.js"></script>
+      <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="../bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="../bower_components/angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
+      <script src="../bower_components/angular-touch/angular-touch.js"></script>
+      <script src="../bower_components/angular-carousel/dist/angular-carousel.js"></script>
+      <script src="../bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
+      <script src="../bower_components/angular-vs-repeat/src/angular-vs-repeat.js"></script>
+      <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,client}) app/app.js -->
+        <script src="app/app.js"></script>
+          <!-- injector:js -->
+          <script src="app/canal/canal.controller.js"></script>
+          <script src="app/canal/canal.js"></script>
+          <script src="app/contact/contact.controller.js"></script>
+          <script src="app/contact/contact.js"></script>
+          <script src="app/indicateursClefs/indicateursClefs.controller.js"></script>
+          <script src="app/indicateursClefs/indicateursClefs.js"></script>
+          <script src="app/js-highchart/highstock.src.js"></script>
+          <script src="app/js-highchart/jquery.js"></script>
+          <script src="app/login/login.controller.js"></script>
+          <script src="app/login/login.js"></script>
+          <script src="app/main/main.controller.js"></script>
+          <script src="app/main/main.js"></script>
+          <script src="app/prise/prise.controller.js"></script>
+          <script src="app/prise/prise.js"></script>
+          <script src="app/reclamation/reclamation.controller.js"></script>
+          <script src="app/reclamation/reclamation.js"></script>
+          <script src="app/report/report.controller.js"></script>
+          <script src="app/report/report.js"></script>
+          <script src="app/satisfaction/satisfaction.controller.js"></script>
+          <script src="app/satisfaction/satisfaction.js"></script>
+          <script src="app/superman/superman.directive.js"></script>
+          <script src="app/templateGen/templateGen.directive.js"></script>
+          <script src="app/traitement/traitement.controller.js"></script>
+          <script src="app/traitement/traitement.js"></script>
+          <script src="app/up_This/up_This.service.js"></script>
+          <script src="app/up_Var/up_Var.service.js"></script>
+          <script src="components/modal/modal.service.js"></script>
+          <script src="components/navbar/navbar.controller.js"></script>
+          <!-- endinjector -->
+        <!-- endbuild -->
+</body>
+</html>
