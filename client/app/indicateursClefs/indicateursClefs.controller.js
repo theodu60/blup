@@ -14,8 +14,8 @@ function initMaster () {
           $rootScope.initSegment(function (Code_Segment) {
             $rootScope.initSousSegment(Code_Segment, function (Code_SousSegment) {
               $rootScope.buildCheckboxPanel(function () {
-              $rootScope.currentTpl = '/tpl.html';
-              updateData();
+                $rootScope.currentTpl = '/tpl.html';
+                updateData();
               });
             });
           });
@@ -103,6 +103,7 @@ $rootScope.updateData = function () {
 
 function updateData() {
   //--VARIABLE INITIALISER A CHAQUE UPDATE
+//  $rootScope.selection.checkbox["1|1"] = true
   $rootScope.onglet = 2;
   var onglet = $rootScope.onglet;
   var Code_Periode = upVar.periode.mois.Code_Mois;
@@ -135,6 +136,8 @@ function updateData() {
   //---------------------------------------------
   $rootScope.updateView(onglet, upVar.onglet.comparaison, upVar.onglet.evolution, upVar.onglet.view_value)
   $rootScope.updateCase(prestataire1, prestataire2, segment, sousSegment, Global);
+
+
   upThis.initEff(Code_Periode, Code_Prestataire, Code_Segment, Code_SousSegment, Code_TypePeriode);
 
   upThis.initQuestion(onglet, function (questions) {

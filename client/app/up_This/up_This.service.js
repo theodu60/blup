@@ -691,6 +691,9 @@ $rootScope.toggleSelection = function (segment, sous_segment) {
     $rootScope.checkboxModel.push(res2);
   }
 
+}
+
+$rootScope.initCheckbox = function () {
   for (var i in $rootScope.selection.checkedbox) {
     $rootScope.selection.checkedbox[i] = false
   }
@@ -701,14 +704,18 @@ $rootScope.toggleSelection = function (segment, sous_segment) {
     $rootScope.selection.checkedbox[indice] = true
   }
 }
-
-$rootScope.initCheckbox = function () {
-
-}
 $rootScope.buildCheckboxPanel = function (cb) {
     $http.get('/api/buildCheckboxs').success(function(data, status, headers, config) {    
       try { 
+            $rootScope.selection.checkedbox = []
             $rootScope.selection.checkboxPanel = data
+            for (var i in $rootScope.selection.checkboxPanel) {
+              var Code_Segment = $rootScope.selection.checkboxPanel[i].Code_Segment
+              for (var y in $rootScope.selection.checkboxPanel[i].sous_seg) {
+                var Code_Sous_Seg = $rootScope.selection.checkboxPanel[i].sous_seg[y].Code_Sous_Seg
+                 $rootScope.selection.checkedbox[Code_Segment + "|" + Code_Sous_Seg] = false
+              }
+            }
             return cb ()
       } catch (e) {
         console.log(e)

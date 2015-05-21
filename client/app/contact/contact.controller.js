@@ -66,7 +66,6 @@ function updateData() {
   $rootScope.updateView(onglet, upVar.onglet.comparaison, upVar.onglet.evolution, upVar.onglet.view_value)
   $rootScope.updateCase(prestataire1, prestataire2, segment, sousSegment, Global);
   upThis.initEff(Code_Periode, Code_Prestataire, Code_Segment, Code_SousSegment, Code_TypePeriode);
-
   upThis.initQuestion(onglet, function (questions) {
     $rootScope.questions = questions
       //MISE A JOUR DU COMPARATEUR
@@ -116,13 +115,4 @@ function updateData() {
  initMaster ();
 
  })
-
-
-
-
-
-
-
-
-
 

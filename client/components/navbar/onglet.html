@@ -4,8 +4,8 @@
                         <li ng-class="{'selected': selection.comparaison}"><a href="#" ng-click="swapToEvolution()">comparaison</a></li>
                         <li ng-class="{'selected': selection.evolution}"><a href="#" ng-click="swapToComparaison()">évolution</a></li>
                     </ul>
-                    <div class="selection-comparatifs" ng-if = "selection.comparaisonSelect"> 
-                        <span class="selection-comparatifs-title js-down" ng-click = "ouvert = !ouvert">SELECTION DES COMPARATIFS</span>
+                    <div class="selection-comparatifs" ng-show = "selection.comparaisonSelect"> 
+                        <span class="selection-comparatifs-title js-down" ng-click = "ouvert = !ouvert; initCheckbox()">SELECTION DES COMPARATIFS</span>
                         <div class="selection-content" ng-class= "{'close': ouvert}">
                             <span class="selec-titles" ng-repeat="box in selection.checkboxPanel">
                                 {{box.Segment_Libel}}
