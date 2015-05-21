@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var mysql = require('mysql');
-var databaseMySQL = require('../databaseMySQL.js')();
+var databaseMySQL = require('../../config/databaseMySQL.js')();
 // Get list of loyalty_payss
 
 function getLibelOfCodePeriode (Code_Periode, key, cb) {
